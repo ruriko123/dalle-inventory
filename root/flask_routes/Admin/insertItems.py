@@ -1,13 +1,12 @@
 
-from flask import Flask, Blueprint,request,jsonify
+from flask import Blueprint,request
 from flask_cors import cross_origin
 import mysql.connector
 import os
 from dotenv import load_dotenv
 load_dotenv()
 app_file1 = Blueprint('app_file1',__name__)
-from root.utils.converttoJson import listtojson
-from root.utils.returnJson import successmsg,errormsg
+from root.utils.returnJson import successmsg
 
 
 @app_file1.route("/insertItems", methods=["POST"])

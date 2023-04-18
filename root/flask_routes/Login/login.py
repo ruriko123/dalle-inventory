@@ -1,5 +1,5 @@
 
-from flask import Flask, Blueprint,request,jsonify
+from flask import Blueprint,request
 from flask_cors import cross_origin
 import mysql.connector
 import os
@@ -7,7 +7,7 @@ from dotenv import load_dotenv
 load_dotenv()
 app_file4 = Blueprint('app_file4',__name__)
 from root.utils.converttoJson import listtojson
-from root.utils.returnJson import successmsg,errormsg
+from root.utils.returnJson import errormsg
 from root.utils.hashDetails import passwordAdminHash,passwordUserHash
 
 @app_file4.route("/login", methods=["POST"])

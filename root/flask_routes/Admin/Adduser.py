@@ -5,8 +5,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 app_file2 = Blueprint('app_file2',__name__)
-from root.utils.converttoJson import listtojson
-from root.utils.returnJson import successmsg,errormsg
+from root.utils.returnJson import errormsg
 from root.utils.hashDetails import passwordUserHash,getUserToken
 from root.utils.getDate import getDateTime
 from root.auth.check import checkAdmin
