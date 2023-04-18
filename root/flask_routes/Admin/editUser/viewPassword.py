@@ -51,7 +51,7 @@ def viewPassword():
                 mydb.close()
                 return data,200
             elif usertype=="USER":
-                userpass = decodepasswordAdminHash(password)
+                userpass = decodepasswordUserHash(password)
                 if userpass=="":
                     data=errormsg("Error while decoding password")
                     return data,400
