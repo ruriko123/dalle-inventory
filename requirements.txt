@@ -1,0 +1,10 @@
+Flask-RESTful
+flask
+Flask-Session
+mysql-connector-python
+flask_cors
+python-dotenv
+PyJWT
+gunicorn==20.1.0
+pytz
+flask-sqlalchemy
