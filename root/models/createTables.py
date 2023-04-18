@@ -2,7 +2,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv()
 import mysql.connector
-from root.utils.hashDetails import passwordHash,getAdminToken
+from root.utils.hashDetails import passwordAdminHash,getAdminToken
 from root.utils.getDate import getDateTime
 import os
 from dotenv import load_dotenv
@@ -85,7 +85,7 @@ def createTables():
     createTableIfNotExists=f"""CREATE TABLE IF NOT EXISTS `tblLogin` (
   `ID` int NOT NULL AUTO_INCREMENT,
   `username` varchar(40) NOT NULL,
-  `password` varchar(200) NOT NULL,
+  `password` varchar(200) DEFAULT NULL,
   `isActive` tinyint(1) DEFAULT '1',
   `token` varchar(200) DEFAULT NULL,
   `type` varchar(10) DEFAULT NULL,
@@ -96,7 +96,7 @@ def createTables():
     cursor.execute(createTableIfNotExists)
     mydb.commit()
     currentDate=getDateTime()
-    passwordhash = passwordHash(os.getenv('ADMIN_PASSWORD'))
+    passwordhash = passwordAdminHash(os.getenv('ADMIN_PASSWORD'))
     tokenstring = "{}{}".format(currentDate,os.getenv('ADMIN_PASSWORD'))
     token = getAdminToken(tokenstring)
     createTableIfNotExists=f"""INSERT IGNORE INTO `tblLogin`(`username`, `password`,`token`,`type`) VALUES (%s,%s,%s,"ADMIN");"""

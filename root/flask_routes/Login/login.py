@@ -8,10 +8,7 @@ load_dotenv()
 app_file4 = Blueprint('app_file4',__name__)
 from root.utils.converttoJson import listtojson
 from root.utils.returnJson import successmsg,errormsg
-from root.utils.hashDetails import passwordHash,getAdminToken
-from root.utils.getDate import getDateTime
-from root.auth.check import checkAdmin
-
+from root.utils.hashDetails import passwordAdminHash,passwordUserHash
 
 @app_file4.route("/login", methods=["POST"])
 @cross_origin()
@@ -23,16 +20,25 @@ def login():
         cursor.execute(database_sql)
         json = request.get_json()
 
-        if not "username" in json or json["username"]=="" or not "password" in json or json["password"]=="":
+        if not "type" in json or json["type"]=="" or not "username" in json or json["username"]=="" or not "password" in json or json["password"]=="":
             data=errormsg("Required parameters not supplied.")
             cursor.close()
             mydb.close()
             return data,400
         username=json["username"]
         password=json["password"]
-        passwordhash = passwordHash(password)
-        checkUserNameExistsSQL=f"""select * from tblLogin where username=%s and password=%s;"""
-        cursor.execute(checkUserNameExistsSQL,(username,passwordhash,),)
+        userType=json["type"]
+        if not userType=="ADMIN" and not userType=="USER":
+            data=errormsg("User type not supplied")
+            mydb.close()
+            return data,400
+        if userType=="ADMIN":
+            passwordhash = passwordAdminHash(password)
+        else:
+            passwordhash = passwordUserHash(password)
+
+        checkUserNameExistsSQL=f"""select * from tblLogin where username=%s and password=%s and isActive=%s;"""
+        cursor.execute(checkUserNameExistsSQL,(username,passwordhash,True,),)
         mydb.commit()
         result = cursor.fetchall()
         if result ==[]:
