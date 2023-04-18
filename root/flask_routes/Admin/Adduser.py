@@ -7,7 +7,7 @@ load_dotenv()
 app_file2 = Blueprint('app_file2',__name__)
 from root.utils.converttoJson import listtojson
 from root.utils.returnJson import successmsg,errormsg
-from root.utils.hashDetails import passwordUserHash,getAdminToken
+from root.utils.hashDetails import passwordUserHash,getUserToken
 from root.utils.getDate import getDateTime
 from root.auth.check import checkAdmin
 
@@ -46,7 +46,7 @@ def addUser():
             currentDate=getDateTime()
             passwordhash = passwordUserHash(password)
             tokenstring = "{}{}".format(currentDate,password)
-            token = getAdminToken(tokenstring)
+            token = getUserToken(tokenstring)
             insertAdminSQL=f"""INSERT INTO `tblLogin`(`username`, `password`,`token`,`type`) VALUES (%s,%s,%s,%s);"""
             cursor.execute(insertAdminSQL,(username,passwordhash,token,'USER',),)
             mydb.commit()

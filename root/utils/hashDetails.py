@@ -17,3 +17,7 @@ def passwordUserHash(password):
 def getAdminToken(tokenString):
     password = jwt.encode({"token":tokenString}, os.getenv('adminTokenHash'), algorithm="HS256")
     return password
+
+def getUserToken(tokenString):
+    password = jwt.encode({"token":tokenString}, os.getenv('userTokenHash'), algorithm="HS256")
+    return password
