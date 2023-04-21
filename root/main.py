@@ -19,7 +19,7 @@ from root.flask_routes.Admin.getList.adminList import app_file5
 from root.flask_routes.Admin.getList.userList import app_file6
 from root.flask_routes.Admin.editUser.viewPassword import app_file7
 from root.flask_routes.Admin.editUser.changeActive import app_file8
-
+from root.flask_routes.franchise.franchiseorder import app_file9
 
 
 
@@ -31,6 +31,7 @@ app.register_blueprint(app_file5)
 app.register_blueprint(app_file6)
 app.register_blueprint(app_file7)
 app.register_blueprint(app_file8)
+app.register_blueprint(app_file9)
 
 
 @app.route("/")
